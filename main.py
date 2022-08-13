@@ -81,7 +81,7 @@ zscores = stats.zscore(dfnum["new_status"])
 dfnum["new_status"] = zscores
 print(dfnum.head())
 
-#print(df.head())
+# print(df.head())
 
 # Q4
 dfnum = dfnum.drop(["passtime", "sex"], axis=1)
@@ -90,11 +90,11 @@ y = dfnum["vote"]
 X_train, X_test, y_train, y_test = train_test_split(x, y, test_size=0.33, random_state=RSEED)
 
 # Q5
-clf = DecisionTreeClassifier( random_state=RSEED)
+clf = DecisionTreeClassifier(random_state=RSEED)
 clf = clf.fit(X_train, y_train)
 # making the tree
 plt.figure(figsize=(14, 10), dpi=200)
-plot_tree(clf, filled=True, feature_names=X_train.columns, class_names=["Democrat","Republican" ])
+plot_tree(clf, filled=True, feature_names=X_train.columns, class_names=["Democrat", "Republican"])
 # plt.show()
 
 # Q6
@@ -103,38 +103,38 @@ print(confusion_matrix(y_test, y_test_pred))
 # Accuracy
 ac = pd.crosstab(y_test, y_test_pred, colnames=["pred"], margins=True)
 print(ac)
-tp=ac.iloc[0,0]
-fp=ac.iloc[0,1]
-fn=ac.iloc[1,0]
-tn=ac.iloc[1,1]
-Accuracy=(tp+tn)/(tp+fp+fn+tn)
+tp = ac.iloc[0, 0]
+fp = ac.iloc[0, 1]
+fn = ac.iloc[1, 0]
+tn = ac.iloc[1, 1]
+Accuracy = (tp + tn) / (tp + fp + fn + tn)
 # Recall
-Recall = tp/(tp+fn)
+Recall = tp / (tp + fn)
 # Precision
-Precision= tp/(tp+fp)
+Precision = tp / (tp + fp)
 print("test set:")
 print(" Accuracy:", Accuracy)
-print("Recall:",Recall)
-print("Precision:",Precision)
+print("Recall:", Recall)
+print("Precision:", Precision)
 
 # Q7
 # checking the train set
 y_train_pred = clf.predict(X_train)
-ac = pd.crosstab(y_train, y_train_pred , colnames=["pred"], margins=True)
+ac = pd.crosstab(y_train, y_train_pred, colnames=["pred"], margins=True)
 print(ac)
-tp=ac.iloc[0,0]
-fp=ac.iloc[0,1]
-fn=ac.iloc[1,0]
-tn=ac.iloc[1,1]
-Accuracy=(tp+tn)/(tp+fp+fn+tn)
+tp = ac.iloc[0, 0]
+fp = ac.iloc[0, 1]
+fn = ac.iloc[1, 0]
+tn = ac.iloc[1, 1]
+Accuracy = (tp + tn) / (tp + fp + fn + tn)
 # Recall
-Recall = tp/(tp+fn)
+Recall = tp / (tp + fn)
 # Precision
-Precision= tp/(tp+fp)
+Precision = tp / (tp + fp)
 print("training set:")
 print(" Accuracy:", Accuracy)
-print("Recall:",Recall)
-print("Precision:",Precision)
+print("Recall:", Recall)
+print("Precision:", Precision)
 
 # There is an overwriting because the indices of the training set are all 100% -
 # it is meen that the machine learned exactly the training set and wont recognize other similar data.
@@ -142,10 +142,10 @@ print("Precision:",Precision)
 
 # Q8
 # limit the tree to avoid overflow
-clf = DecisionTreeClassifier(max_depth=5, min_samples_leaf=40,random_state=RSEED)
+clf = DecisionTreeClassifier(max_depth=5, min_samples_leaf=40, random_state=RSEED)
 clf = clf.fit(X_train, y_train)
 plt.figure(figsize=(14, 10), dpi=200)
-plot_tree(clf, filled=True, feature_names=X_train.columns, class_names=["Democrat","Republican" ], fontsize=4)
+plot_tree(clf, filled=True, feature_names=X_train.columns, class_names=["Democrat", "Republican"], fontsize=4)
 # plt.show()
 
 # Q8.a-3
@@ -153,7 +153,7 @@ plot_tree(clf, filled=True, feature_names=X_train.columns, class_names=["Democra
 # Q8.c-volunteering
 # Q8.d- Age and passtime.
 # Q8.e-
-print("row 68:", dfnum.iloc[67:68,3:4])
+print("row 68:", dfnum.iloc[67:68, 3:4])
 y_test_pred68 = clf.predict(X_test)[68]
 print(np.column_stack(y_test_pred68))
 # The prediction went wrong because the vote in row 68 should be "republican" and the model predicted "democrat" .
@@ -161,8 +161,6 @@ print(np.column_stack(y_test_pred68))
 # Q9
 y_test_pred = clf.predict(X_test)
 print(confusion_matrix(y_test, y_test_pred))
-
-
 
 # Q10
 # the accuracy at the test was not very high- not over-training
@@ -182,24 +180,22 @@ x = dfnum.drop(["new_status", "status"], axis=1)
 y = dfnum["status"]
 X_train, X_test, y_train, y_test = train_test_split(x, y, test_size=0.33, random_state=RSEED)
 # building the tree
-clf = DecisionTreeClassifier(max_depth=5, min_samples_leaf=40,random_state=RSEED)
+clf = DecisionTreeClassifier(max_depth=5, min_samples_leaf=40, random_state=RSEED)
 clf = clf.fit(X_train, y_train)
 plt.figure(figsize=(18, 15), dpi=100)
-plot_tree(clf, filled=True, feature_names=X_train.columns, class_names=[ "family","couple", "single"], fontsize=4)
+plot_tree(clf, filled=True, feature_names=X_train.columns, class_names=["family", "couple", "single"], fontsize=4)
 # confusion matrix
 y_test_pred = clf.predict(X_test)
 print(confusion_matrix(y_test, y_test_pred))
 # Accuracy
 ac = pd.crosstab(y_test, y_test_pred, colnames=["pred"], margins=True)
-tp = ac.iloc[0,0]
-fp = ac.iloc[0,1]
-fn = ac.iloc[1,0]
-tn = ac.iloc[1,1]
-Accuracy=(tp+tn)/(tp+fp+fn+tn)
+tp = ac.iloc[0, 0]
+fp = ac.iloc[0, 1]
+fn = ac.iloc[1, 0]
+tn = ac.iloc[1, 1]
+Accuracy = (tp + tn) / (tp + fp + fn + tn)
 print(Accuracy)
 # 0.6666666666666666
 # The model wont predict the status so good because the accuracy is very low .
 # Q11- the precision of single is : 38/72=0.527. It was calculated according to the last confusion matrix.
-
-
-
+print('Tesy')
